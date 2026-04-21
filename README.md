@@ -1,16 +1,26 @@
-## Hi there 👋
+# Hi, I'm Mykhailo 👋
 
-<!--
-**Knysh19/Knysh19** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+Frontend Developer (React + TypeScript)
 
-Here are some ideas to get you started:
+## 🚀 About Me
+- I build modern web applications using React and TypeScript
+- Focused on clean code, performance, and user experience
+- Currently looking for a Junior Frontend position
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+## 💻 Projects
+
+### 🎬 PreFinder – AI Movie Recommendation App
+- React, TypeScript, Node.js
+- TMDB API + AI recommendations
+- https://github.com/Knysh19/prefinder-ai-movie-recommender
+
+### 🛒 Phone Catalog – E-commerce App
+- React, TypeScript
+- Product listing, filtering, cart
+- https://knysh19.github.io/react_phone-catalog/
+
+## 🛠 Tech Stack
+React • TypeScript • JavaScript • HTML • CSS • Git • REST API
+
+## 📫 Contact
+- LinkedIn: https://linkedin.com/in/mykhailoknysh
