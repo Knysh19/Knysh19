@@ -12,15 +12,26 @@ Frontend Developer (React + TypeScript)
 ### 🎬 PreFinder – AI Movie Recommendation App
 - React, TypeScript, Node.js
 - TMDB API + AI recommendations
-- https://github.com/Knysh19/prefinder-ai-movie-recommender
+- https://prefinder-ai-movie-recommender-pack.vercel.app/
+
+### ✨ Nexora – Luxury Portfolio Landing Page
+- React, TypeScript, Tailwind CSS, Framer Motion
+- Premium landing page with smooth animations and modern UI
+- https://nexora-studio-eight.vercel.app/
+
+### 🛒 TechnoVezha – E-commerce Website
+- React, TypeScript
+- Product catalog, categories, product pages, cart
+- https://techno-vezha.vercel.app/
 
 ### 🛒 Phone Catalog – E-commerce App
 - React, TypeScript
 - Product listing, filtering, cart
-- https://knysh19.github.io/react_phone-catalog/
+- https://react-tech-store-silk.vercel.app/
 
 ## 🛠 Tech Stack
 React • TypeScript • JavaScript • HTML • CSS • Git • REST API
 
 ## 📫 Contact
 - LinkedIn: https://linkedin.com/in/mykhailoknysh
+- Gmail: mykhailoknysh5@gmail.com
