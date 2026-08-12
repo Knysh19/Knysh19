@@ -35,16 +35,3 @@ React • TypeScript • JavaScript • HTML • CSS • Git • REST API
 ## 📫 Contact
 - LinkedIn: https://linkedin.com/in/mykhailoknysh
 - Gmail: mykhailoknysh5@gmail.com
-
-
-<br />
-
-<div align="center">
-
-<img
-  src="https://raw.githubusercontent.com/Knysh19/Knysh19/gh-pages/contribution-glow.svg"
-  width="100%"
-  alt="Animated GitHub contributions"
-/>
-
-</div>
