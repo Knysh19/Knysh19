@@ -64,6 +64,7 @@ jobs:
               data = json.load(res)
 
           weeks = data["data"]["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]
+          weeks = weeks[-18:]
 
           CELL = 12
           GAP = 4
