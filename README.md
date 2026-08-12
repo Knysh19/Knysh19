@@ -41,10 +41,6 @@ React • TypeScript • JavaScript • HTML • CSS • Git • REST API
 
 <div align="center">
 
-<h3>
-  <code>knysh19@github ~ $ ./contributions --animate</code>
-</h3>
-
 <img
   src="https://raw.githubusercontent.com/Knysh19/Knysh19/gh-pages/contribution-glow.svg"
   width="100%"
