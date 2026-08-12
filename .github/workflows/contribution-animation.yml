@@ -13,18 +13,187 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Generate snake
-        uses: Platane/snk@v3
-        with:
-          github_user_name: Knysh19
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-          outputs: |
-            dist/github-contribution-grid-snake.svg?palette=github-dark&color_snake=#8b5cf6&color_dots=#161b22,#172554,#1d4ed8,#4f46e5,#7c3aed
+      - name: Generate animated contribution SVG
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 <<'PY'
+          import json
+          import os
+          import urllib.request
+          from datetime import datetime
 
-      - name: Push generated files
+          USERNAME = "Knysh19"
+
+          query = """
+          query($login: String!) {
+            user(login: $login) {
+              contributionsCollection {
+                contributionCalendar {
+                  weeks {
+                    contributionDays {
+                      contributionCount
+                      date
+                      weekday
+                    }
+                  }
+                }
+              }
+            }
+          }
+          """
+
+          payload = json.dumps({
+              "query": query,
+              "variables": {"login": USERNAME}
+          }).encode()
+
+          req = urllib.request.Request(
+              "https://api.github.com/graphql",
+              data=payload,
+              headers={
+                  "Authorization": f"Bearer {os.environ['GH_TOKEN']}",
+                  "Content-Type": "application/json"
+              }
+          )
+
+          with urllib.request.urlopen(req) as res:
+              data = json.load(res)
+
+          weeks = data["data"]["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]
+
+          CELL = 12
+          GAP = 4
+          STEP = CELL + GAP
+          LEFT = 36
+          TOP = 28
+
+          width = LEFT + len(weeks) * STEP + 20
+          height = TOP + 7 * STEP + 35
+
+          colors = [
+              "#161b22",
+              "#172554",
+              "#1d4ed8",
+              "#4f46e5",
+              "#7c3aed"
+          ]
+
+          def level(count):
+              if count == 0:
+                  return 0
+              if count <= 2:
+                  return 1
+              if count <= 5:
+                  return 2
+              if count <= 9:
+                  return 3
+              return 4
+
+          cells = []
+
+          index = 0
+
+          for x, week in enumerate(weeks):
+              for day in week["contributionDays"]:
+                  y = day["weekday"]
+                  count = day["contributionCount"]
+                  lvl = level(count)
+
+                  px = LEFT + x * STEP
+                  py = TOP + y * STEP
+
+                  delay = index * 0.025
+                  glow_delay = delay + 1.2
+
+                  if lvl == 0:
+                      opacity = "0.38"
+                  else:
+                      opacity = "1"
+
+                  cells.append(f'''
+                  <rect
+                    x="{px}"
+                    y="{py}"
+                    width="{CELL}"
+                    height="{CELL}"
+                    rx="3"
+                    fill="{colors[lvl]}"
+                    opacity="0"
+                  >
+                    <animate
+                      attributeName="opacity"
+                      values="0;{opacity}"
+                      dur="0.35s"
+                      begin="{delay:.3f}s"
+                      fill="freeze"
+                    />
+                    <animate
+                      attributeName="filter"
+                      values="url(#none);url(#glow);url(#none)"
+                      dur="2.8s"
+                      begin="{glow_delay:.3f}s"
+                      repeatCount="indefinite"
+                    />
+                  </rect>
+                  ''')
+
+                  index += 1
+
+          svg = f'''<svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="{width}"
+            height="{height}"
+            viewBox="0 0 {width} {height}"
+          >
+            <defs>
+              <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+                <feGaussianBlur stdDeviation="3" result="blur"/>
+                <feMerge>
+                  <feMergeNode in="blur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+
+              <filter id="none">
+                <feGaussianBlur stdDeviation="0"/>
+              </filter>
+            </defs>
+
+            <rect
+              width="100%"
+              height="100%"
+              rx="14"
+              fill="#0d1117"
+            />
+
+            <text
+              x="20"
+              y="20"
+              fill="#8b949e"
+              font-family="monospace"
+              font-size="12"
+            >
+              knysh19@github ~ $ ./contributions --animate
+            </text>
+
+            {''.join(cells)}
+          </svg>
+          '''
+
+          os.makedirs("dist", exist_ok=True)
+
+          with open("dist/contribution-glow.svg", "w", encoding="utf-8") as f:
+              f.write(svg)
+
+          PY
+
+      - name: Deploy generated SVG
         uses: crazy-max/ghaction-github-pages@v4
         with:
           build_dir: dist
-          branch: output
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
