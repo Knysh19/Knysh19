@@ -66,7 +66,7 @@ jobs:
           weeks = data["data"]["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]
           weeks = weeks[-18:]
 
-          CELL = 12
+          CELL = 17
           GAP = 4
           STEP = CELL + GAP
           LEFT = 36
